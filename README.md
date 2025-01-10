@@ -124,13 +124,13 @@ landbot-senior-sw-engineer-challenge/
 - **Docker Compose**: Configuration to run multiple services in a simple and reproducible way.
 
 
-# 🛠️ Installation
+## 🛠️ Installation
 
-## Prerequisites
+### Prerequisites
 - Docker & Docker Compose installed.
 - Git for version control.
 
-## Quickstart
+### Quickstart
 
 Clone the Repository
 
@@ -144,8 +144,8 @@ Build and Deploy Docker Containers
 
 
 
-# Usage
-## Send a notification
+## Usage
+### Send a notification
 Make a POST request to the endpoint http://localhost:8000/api/notify/ with the following JSON format:
 ```json
 {
@@ -160,9 +160,9 @@ curl -X POST http://localhost:8000/api/notify/ \
 -d '{"topic": "sales", "description": "I need help."}'
 ```
 
-# 🧪 Testing
+## 🧪 Testing
 
-## Running Tests
+### Running Tests
 To run the tests, use the following command:
 ```bash
 docker-compose exec web python manage.py test
