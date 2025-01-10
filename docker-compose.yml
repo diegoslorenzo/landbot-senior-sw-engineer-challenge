@@ -1,0 +1,35 @@
+services:
+  # Contenedor Django principal
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app  # Monta tu proyecto local dentro del contenedor
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  # Contenedor Redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  # Contenedor Django Q (worker)
+  qcluster:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qcluster
+    command: python manage.py qcluster
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
