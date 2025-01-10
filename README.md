@@ -90,7 +90,8 @@ landbot-senior-sw-engineer-challenge/
 ├── manage.py 
 ├── Dockerfile 
 ├── docker-compose.yml 
-└── README.md
+├── README.md 
+└── requirements.txt
 ```
 
 
