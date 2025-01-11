@@ -30,6 +30,7 @@ class NotifyAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         
+        print(f"Creating notification with topic '{topic}' in DB")
         # Create the notification in DB
         notification = Notification.objects.create(
             topic=topic,

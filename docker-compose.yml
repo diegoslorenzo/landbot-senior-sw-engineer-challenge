@@ -12,6 +12,8 @@ services:
       - .:/app  # Monta tu proyecto local dentro del contenedor
     ports:
       - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
     depends_on:
       - redis
 
@@ -31,5 +33,7 @@ services:
     command: python manage.py qcluster
     volumes:
       - .:/app
+    environment:
+      - ENVIRONMENT=development
     depends_on:
       - redis

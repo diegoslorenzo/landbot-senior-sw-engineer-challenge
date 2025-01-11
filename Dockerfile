@@ -1,14 +1,15 @@
-# Use the official Python image based on Debian Slim
+# Use the official Python 3.11.4 image based on Debian Slim
 FROM python:3.11.4-slim-bullseye
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Install required system dependencies for Django and PostgreSQL
+# Install required system dependencies for Django, SQLite3 (sqlite3) and PostgreSQL (libpq-dev)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     build-essential \
     sqlite3 \
+    libpq-dev \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file to the working directory

@@ -1,6 +1,7 @@
 Django==4.2
 django-extensions
 djangorestframework
+psycopg2-binary
 django-q
 requests
 coverage
