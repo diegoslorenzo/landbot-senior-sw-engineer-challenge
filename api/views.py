@@ -10,7 +10,8 @@ from notifications.factories import notifier_factory
 class NotifyAPIView(APIView):
     """
     Recive a JSON with 'topic' and 'description'.
-    Uses the factory to get the channel and send the notification.
+    Uses the factory to get the channel.
+    Enqueues the notification to be sent.
     """
 
     def post(self, request, *args, **kwargs):

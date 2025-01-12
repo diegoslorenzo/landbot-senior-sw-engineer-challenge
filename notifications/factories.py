@@ -22,6 +22,6 @@ class NotifierFactory:
 
 
 # We create a global instance of the factory (could live in a global module).
-# Alternatively, you could make the factory get its configuration from a JSON file, the database, etc.
+# Alternatively, you could make the factory get its configuration from a settings file, the database, etc.
 notifier_factory = NotifierFactory()
 # The important thing is that it is extensible without touching the endpoint.

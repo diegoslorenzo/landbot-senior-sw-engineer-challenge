@@ -48,9 +48,9 @@ Pricing  | Email
 - **API Framework**: Django Rest Framework (DRF)
 - **Task Orchestration**: Django Q
 - **Message Broker**: Redis
-- **Database**: SQLite (configurable to PostgreSQL or others)
+- **Database**: SQLite & PostgreSQL
 - **Containers**: Docker, Docker Compose
-- **Testing**: Django Test Framework
+- **Testing**: Django Test Framework, Coverage
 - **Version Control**: Git, GitHub
 
 ## 🏗️ Architecture
@@ -85,11 +85,16 @@ landbot-senior-sw-engineer-challenge/
 │ ├── tasks.py 
 │ └── tests.py 
 ├── notifier/ 
-│ ├── settings.py 
+│ ├── settings/
+│ |  ├── __init__.py
+│ |  ├── base.py
+│ |  ├── development.py
+│ |  └── production.py 
 │ └── urls.py 
 ├── manage.py 
 ├── Dockerfile 
 ├── docker-compose.yml 
+├── docker-compose.production.yml 
 ├── README.md 
 └── requirements.txt
 ```
@@ -110,7 +115,7 @@ landbot-senior-sw-engineer-challenge/
 
 - **Topics and Channels Extension**: The architecture makes it easy to add new `topics` and channels by simply registering new notifiers in the factory.
 
-- **Database Configuration**: Although SQLite is used by default, the configuration allows you to easily switch to other databases without modifying the business logic.
+- **Database Configuration**: Although SQLite (development) and PostgreSQL (production) are used by default, the configuration allows you to easily switch to other databases without modifying the business logic.
 
 ### 3. **Automated Testing**
 
@@ -119,6 +124,8 @@ landbot-senior-sw-engineer-challenge/
 - **Integration Tests**: These verify the complete flow from receiving a request to sending the notification.
 
 - **Mocking**: Use of `unittest.mock` to simulate external behaviors.
+
+- **Test Coverage**: Used `coverage` library to measure and report test coverage, ensuring that a high proportion of code is being tested and helping to identify areas that require further testing.
 
 ### 4. **Dockerization**
 
@@ -142,6 +149,27 @@ Clone the Repository
 Build and Deploy Docker Containers
 
 3. ```docker-compose up -d --build```
+
+### Switching Environments
+
+The app is configured to use SQLite for development and PostgreSQL for production. You can easily switch between these environments by specifying the appropriate Docker Compose files when launching your services.
+
+#### Switch to Production Environment
+
+To run the application in production, which uses PostgreSQL as the database, execute the following command:
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d --build
+```
+
+#### Notes:
+- `docker-compose.production.yml` uses some environment variables. You can create a `.env` file and use the following:
+```.env
+POSTGRES_DB=notificator_db
+POSTGRES_USER=notificator_user
+POSTGRES_PASSWORD=notificator_password
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+```
 
 
 

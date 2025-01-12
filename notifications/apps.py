@@ -6,6 +6,10 @@ class NotificationsConfig(AppConfig):
     name = 'notifications'
 
     def ready(self):
+        '''
+        This method is called when the app is ready.
+        We use it to register the notifiers in the factory.
+        '''
         from .factories import notifier_factory
         from .notifiers import SlackNotifier, EmailNotifier
 
