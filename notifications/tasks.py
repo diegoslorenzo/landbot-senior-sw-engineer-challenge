@@ -20,22 +20,18 @@ def process_notification(notification_id: int):
         return
 
     with transaction.atomic():
-        notification.attempts += 1
-        notification.save()
+        notification.increment_attempts()
 
         notifier = notifier_factory.get_notifier(notification.topic)
         if not notifier:
             print(f"Notifier not found for topic {notification.topic}")
-            notification.status = Notification.STATUS_FAILED
-            notification.save()
+            notification.set_status_failed()
             return
 
         try:
             notifier.notify(notification.description)
-            notification.status = Notification.STATUS_SENT
-            notification.save()
+            notification.set_status_sent()
             print(f"Notification {notification_id} sent successfully.")
         except Exception as e:
-            notification.status = Notification.STATUS_FAILED
-            notification.save()
+            notification.set_status_failed()
             print(f"Error sending notification {notification_id}: {e}")

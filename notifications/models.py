@@ -15,3 +15,15 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"[{self.id}] {self.topic} - {self.status}"
+    
+    def set_status_sent(self):
+        self.status = self.STATUS_SENT
+        self.save(update_fields=['status'])
+
+    def set_status_failed(self):
+        self.status = self.STATUS_FAILED
+        self.save(update_fields=['status'])
+
+    def increment_attempts(self):
+        self.attempts += 1
+        self.save(update_fields=['attempts'])
