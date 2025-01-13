@@ -143,14 +143,15 @@ NOTIFICATION_EMAIL = 'pricing@myproject.com'
 
 # For production, an example with SMTP:
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.sendgrid.net')
+# EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'apikey')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'secret-key')
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'email@gmail.com')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'password')
 
-# DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@myproject.com')
-# NOTIFICATION_EMAIL = os.environ.get('NOTIFICATION_EMAIL', 'pricing@myproject.com') # Who will receive the notifications for "pricing", for example
+# DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@gmail.com')
+# NOTIFICATION_EMAIL = os.environ.get('NOTIFICATION_EMAIL', 'pricing@gmail.com') # Who will receive the notifications for "pricing", for example
 
 # Django Q configuration
 # https://django-q.readthedocs.io/en/latest/configure.html
@@ -162,5 +163,27 @@ Q_CLUSTER = {
         'host': 'redis',
         'port': 6379,
         'db': 0,
+    },
+}
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {  # Send logs to console
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        },
+    },
+    'formatters': {
+        'standard': {  # Log format
+            'format': '%(asctime)s %(levelname)s %(message)s',
+            'datefmt': '%H:%M:%S',
+        },
+    },
+    'root': {  # Logger raíz
+        'handlers': ['console'],
+        'level': 'INFO',
     },
 }

@@ -1,3 +1,4 @@
+import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,6 +7,9 @@ from .serializers import NotificationSerializer
 from notifications.models import Notification
 from notifications.services import notification_orchestrator
 from notifications.factories import notifier_factory
+
+logger = logging.getLogger(__name__)
+
 
 class NotifyAPIView(APIView):
     """
@@ -31,7 +35,7 @@ class NotifyAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         
-        print(f"Creating notification with topic '{topic}' in DB")
+        logger.info(f"Creating notification with topic '{topic}' in DB")
         # Create the notification in DB
         notification = Notification.objects.create(
             topic=topic,

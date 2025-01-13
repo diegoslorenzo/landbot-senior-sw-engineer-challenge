@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 import os
 import requests
+import logging
 
 from django.core.mail import send_mail
 from django.conf import settings
 
+logger = logging.getLogger(__name__)
 
 class BaseNotifier(ABC):
     @abstractmethod
@@ -13,7 +15,7 @@ class BaseNotifier(ABC):
 
 class SlackNotifier(BaseNotifier):
     def notify(self, message: str) -> None:
-        print(f"[MOCK SLACK] Notifiying: {message}")
+        logger.info(f"[MOCK SLACK] Notifiying: {message}")
 
 
 class EmailNotifier(BaseNotifier):
@@ -31,4 +33,4 @@ class EmailNotifier(BaseNotifier):
             )
         except Exception as e:
             # TODO: Handle the error properly 
-            print(f"Error sending email notification: {e}")
+            logger.info(f"Error sending email notification: {e}")
