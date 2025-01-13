@@ -33,10 +33,18 @@ Pricing  | Email
 
 **Notifier** is an application developed with Django and Django Rest Framework (DRF) designed to receive customer requests via a bot and forward them to different communication channels depending on the selected topic. This solution is scalable, maintainable and built following SOLID principles to ensure decoupled code that is easy to extend in the future.
 
-### Scope
+### Functionality and scope
 The project includes the implementation of a queue-based architecture for notification management. This strategy allows notifications to be processed in the background, improving the scalability and performance of the system. In addition, a database of all notifications is created, which allows verification that each request has been received correctly, knowing the status of the operation and controlling the number of attempts made to send each notification. 
 
 The option to notify via email has been implemented and the django configuration `django.core.mail.backends.locmem.EmailBackend` is used which allows storing the sent email in memory without having to perform the real sending.
+
+When the app is launched, the necessary services are automatically created and the API is exposed to calls in `/api/notify/`.
+
+When the system receives an HTTP POST request, error control is performed before queuing the notification task. Each notification is registered in the DB with the status 'pending' in the 'notification' table and is sent through the corresponding channel. Once the sending is successful, the notification record in the DB is updated to the status 'sent'. If an error occurs during the process, the notification status is updated to 'failed'.
+
+- The possibility of accessing the 'notification' resource via API has not been implemented.
+- The management after a failed sending has not been developed. The information in the 'notification' table would allow the development of a flow for the treatment of failed notifications.
+
 
 ## 🚀 Characteristics
 
